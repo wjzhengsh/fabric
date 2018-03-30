@@ -14,7 +14,7 @@ SDKs, and certificate authority (CA) service.
 
    prereqs
    samples
-   referncedocs
+   referencedocs
 
 .. note:: If you have questions not addressed by this documentation, or run
           into           issues with any of the tutorials, please visit the
