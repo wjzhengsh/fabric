@@ -7,7 +7,6 @@ Operations Guides
    upgrade_to_one_point_one
    config_update
    msp
-   configtx
    endorsement-policies
    error-handling
    logging-control
