@@ -1,5 +1,9 @@
-Hyperledger Fabric Samples
+Install Binaries, Docker Images, and Samples
 ==========================
+
+You must download and install platform-specific-binaries and Docker images to
+set up your Hyperledger Fabric network on your platform.  We also offers a set
+of sample applications with which you can start to practice the tutorials.
 
 .. note:: If you are running on **Windows** you will want to make use of the
 	  Docker Quickstart Terminal for the upcoming terminal commands.
@@ -19,9 +23,17 @@ Hyperledger Fabric Samples
           documentation for `shared drives <https://docs.docker.com/docker-for-windows/#shared-drives>`__
           and use a location under one of the shared drives.
 
-Determine a location on your machine where you want to place the Hyperledger
-Fabric samples applications repository and open that in a terminal window. Then,
-execute the following commands:
+It's a good practice to start with installing Hyperledger Fabric samples before
+you install platform-specific-binaries and Docker images. However, you can
+choose to not install samples, but simply install platform-specific-binaries
+and Docker images.
+
+Install Samples
+^^^^^^^^^^^^^^^^^
+
+Determine a directory on your platform where you want to place the Hyperledger
+Fabric's samples applications repository and open this directory in a terminal
+window. Then, execute the following commands:
 
 .. code:: bash
 
@@ -35,17 +47,15 @@ execute the following commands:
 
 .. _binaries:
 
-Download Platform-specific Binaries
+Install Platform-specific Binaries
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Next, we will install the Hyperledger Fabric platform-specific binaries.
-This process was designed to complement the Hyperledger Fabric Samples
-above, but can be used independently. If you are not installing the
-samples above, then simply create and enter a directory into which to
-extract the contents of the platform-specific binaries.
+Installing the Hyperledger Fabric's platform-specific binaries is designed to
+complement the Hyperledger Fabric Samples, but can be used independently.
+If you do not install the samples above, simply create and enter a directory
+into which to extract the contents of the platform-specific binaries.
 
-Please execute the following command from within the directory into which
-you will extract the platform-specific binaries:
+Open this directory in a terminal window and execute the following command:
 
 .. code:: bash
 
@@ -65,45 +75,46 @@ you will extract the platform-specific binaries:
           Fabric. Simply replace '1.1.0' with the version identifier
           of the version you wish to install.
 
-The command above downloads and executes a bash script
-that will download and extract all of the platform-specific binaries you
-will need to set up your network and place them into the cloned repo you
-created above. It retrieves four platform-specific binaries:
+The command above downloads and executes the bash script to download and
+extract all of the platform-specific binaries that you need to set up your
+network. The script stores the platform-specific binaries into the cloned repo
+that you create when you install samples. The script retrieves the following
+platform-specific binaries and stores them in the ``bin`` sub-directory of
+your current working directory:
 
-  * ``cryptogen``,
-  * ``configtxgen``,
-  * ``configtxlator``,
+  * ``cryptogen``
+  * ``configtxgen``
+  * ``configtxlator``
   * ``peer``
-  * ``orderer`` and
+  * ``orderer``
   * ``fabric-ca-client``
 
-and places them in the ``bin`` sub-directory of the current working
-directory.
-
-You may want to add that to your PATH environment variable so that these
-can be picked up without fully qualifying the path to each binary. e.g.:
+You might want to add this download directory to your PATH environment variable
+so that it can be picked up without fully qualifying the path to each binary.
+For example, you can add the directory to PATH with the following command:
 
 .. code:: bash
 
   export PATH=<path to download location>/bin:$PATH
 
-Finally, the script will download the Hyperledger Fabric docker images from
-`Docker Hub <https://hub.docker.com/u/hyperledger/>`__ into
-your local Docker registry and tag them as 'latest'.
+Install Docker Images
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The script lists out the Docker images installed upon conclusion.
+The bash script above also downloads the Hyperledger Fabric Docker images from
+`Docker Hub <https://hub.docker.com/u/hyperledger/>`__ to your local Docker
+registry and tag them as 'latest'.
+
+After the download, the script lists out the Docker images that are installed
+upon conclusion.
 
 Look at the names for each image; these are the components that will ultimately
-comprise our Hyperledger Fabric network.  You will also notice that you have
+comprise your Hyperledger Fabric network.  You will also notice that you have
 two instances of the same image ID - one tagged as "x86_64-1.x.x" and
 one tagged as "latest".
 
-.. note:: On different architectures, the x86_64 would be replaced
+.. note:: On different architectures, the "x86_64" would be replaced
           with the string identifying your architecture.
 
-.. note:: If you have questions not addressed by this documentation, or run into
-          issues with any of the tutorials, please visit the :doc:`questions`
-          page for some tips on where to find additional help.
 
 .. Licensed under Creative Commons Attribution 4.0 International License
    https://creativecommons.org/licenses/by/4.0/

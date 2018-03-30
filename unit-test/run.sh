@@ -13,7 +13,6 @@ excluded_packages=(
     "github.com/hyperledger/fabric/build/"
     "github.com/hyperledger/fabric/common/ledger/testutil"
     "github.com/hyperledger/fabric/common/mocks"
-    "github.com/hyperledger/fabric/core/chaincode/platforms/car/test" # until FAB-7629 is resolved
     "github.com/hyperledger/fabric/core/deliverservice/mocks"
     "github.com/hyperledger/fabric/core/ledger/kvledger/example"
     "github.com/hyperledger/fabric/core/ledger/kvledger/marble_example"
@@ -26,6 +25,11 @@ excluded_packages=(
     "github.com/hyperledger/fabric/orderer/sample_clients"
     "github.com/hyperledger/fabric/test"
     "github.com/hyperledger/fabric/vendor/"
+)
+
+# regexes for packages that must be run serially
+serial_packages=(
+    "github.com/hyperledger/fabric/gossip"
 )
 
 # packages which need to be tested with build tag pluginsenabled
@@ -46,8 +50,18 @@ list_and_filter() {
     go list $@ 2>/dev/null | grep -Ev $(local IFS='|' ; echo "${excluded_packages[*]}") || true
 }
 
+# remove packages that must be tested serially
+parallel_test_packages() {
+    echo "$@" | grep -Ev $(local IFS='|' ; echo "${serial_packages[*]}") || true
+}
 
-# "go test" the provided packages.
+# get packages that must be tested serially
+serial_test_packages() {
+    echo "$@" | grep -E $(local IFS='|' ; echo "${serial_packages[*]}") || true
+}
+
+# "go test" the provided packages. Packages that are not prsent in the serial package list
+# will be tested in parallel
 run_tests() {
     echo ${GO_TAGS}
     flags="-cover"
@@ -55,9 +69,14 @@ run_tests() {
       flags="-v -cover"
     fi
 
-    local parallel="$@"
+    local parallel=$(parallel_test_packages "$@")
     if [ -n "${parallel}" ]; then
         time go test ${flags} -tags "$GO_TAGS" ${parallel[@]} -short -timeout=20m
+    fi
+
+    local serial=$(serial_test_packages "$@")
+    if [ -n "${serial}" ]; then
+        time go test ${flags} -tags "$GO_TAGS" ${serial[@]} -short -p 1 -timeout=20m
     fi
 }
 

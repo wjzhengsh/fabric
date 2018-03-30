@@ -11,4 +11,6 @@ Key Concepts
    membership/membership.md
    peers/peers.md
    ledger
+   channels
+   configtx
    usecases
